@@ -1,0 +1,10 @@
+---
+
+region: us-west-2
+image: ami-a58d0dc5
+ec2_access_key: AKIAIKZKYUZXRLOMPJHQ 
+ec2_secret_key: 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 
+instance_type: t2.micro
+count: 1
+keypair: KeyPair
+security_group: webserver-for-ansible

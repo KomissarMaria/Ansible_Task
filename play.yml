@@ -1,0 +1,33 @@
+---
+
+- name: Provision ec2 instances based on the environment
+  hosts: localhost
+  connection: local
+  gather_facts: False
+
+  vars_files:
+    - vars/all.yml
+  roles:
+    - launch
+
+
+- name: create keypair
+  hosts: launched_server
+  tasks: 
+  - name: upload public key
+    ec2_key:
+      name=MyKey
+      key_material="{{ item }}"
+    with_file: ~/.ssh/MyKey.pem
+
+- name: install 
+  hosts: launched_server
+  remote_user: ec2-user
+  sudo: yes
+  
+  vars_files:
+  - vars/all.yml
+  roles:
+    - tomcat
+    #- mysql
+    #- oracle
